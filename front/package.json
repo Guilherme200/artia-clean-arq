@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "build:core": "npm run build -w core",
+    "start:core": "npm run start -w core",
+    "test:core": "npm run test -w core",
+    "test:nuxt": "npm run test -w nuxt",
+    "build:nuxt": "npm run build -w nuxt",
+    "dev": "npm run dev -w nuxt",
+    "test": "npm run test:core && npm run test:nuxt",
+    "build": "npm run build:core && npm run build:nuxt"
+  },
+  "workspaces": [
+    "./src/core",
+    "./src/nuxt"
+  ],
+  "author": "",
+  "license": "ISC"
+}
