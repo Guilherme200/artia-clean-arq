@@ -1,4 +1,4 @@
-# Application Task Minimal Starter
+# Application Artia Minimal Starter
 
 ## Setup
 
