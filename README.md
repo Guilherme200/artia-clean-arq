@@ -9,7 +9,7 @@ Em primeiro lugar é necessário ter o docker e o docker-compose instalados em s
 
 ## Setup
 
-Make sure to install the dependencies:
+Certifique-se de instalar as dependências:
 
 ```bash
 # npm
@@ -18,16 +18,14 @@ Make sure to install the dependencies:
 
 ## Development Server
 
-Start the development server on `http://localhost:80`:
+Iniciar o servidor de desenvolvimento em `http://localhost:80`:
 
 ```bash
 # npm
 ./laravel-docker start
 ```
 
-## Production
-
-Stop the development server:
+Parar o servidor de desenvolvimento:
 
 ```bash
 # npm
