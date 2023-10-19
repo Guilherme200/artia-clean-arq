@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/front/Dockerfile
+    volumes:
+      - ./front:/app
+    command: npm run dev
+    ports:
+      - '81:3000'
