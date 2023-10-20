@@ -32,23 +32,23 @@
     </div>
 
     <div class="flex w-full mt-4">
-      <DataTable
-        :loading="false"
-        :headers="headers"
-        :items="data.items"
-        :pagination="data.meta"
-        @show="(id) => show(id)"
-        @edit="(id) => edit(id)"
-        @destroy="(id) => destroy(id)"
-      >
-        <template #columnStatus="{item}">
-          <span
-            class="badge text-base-100 gap-2"
-            :class="item?.status === 'ACTIVE' ? 'badge-success' : 'badge-error'">
-            {{ item?.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}
-          </span>
-        </template>
-      </DataTable>
+<!--      <DataTable-->
+<!--        :loading="false"-->
+<!--        :headers="headers"-->
+<!--        :items="data.data"-->
+<!--        :pagination="data.meta"-->
+<!--        @show="(id) => show(id)"-->
+<!--        @edit="(id) => edit(id)"-->
+<!--        @destroy="(id) => destroy(id)"-->
+<!--      >-->
+<!--        <template #columnStatus="{item}">-->
+<!--          <span-->
+<!--            class="badge text-base-100 gap-2"-->
+<!--            :class="item?.status === 'ACTIVE' ? 'badge-success' : 'badge-error'">-->
+<!--            {{ item?.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}-->
+<!--          </span>-->
+<!--        </template>-->
+<!--      </DataTable>-->
     </div>
 
     <component
@@ -68,6 +68,7 @@ import FilterSelect from '~/components/shared/FilterSelect.vue';
 import CreateCourse from '~/components/courses/CreateCourse.vue';
 import UpdateCourse from '~/components/courses/UpdateCourse.vue';
 import DestroyCourse from '~/components/courses/DestroyCourse.vue';
+import {CourseService} from "core/src/domain/course/CourseService";
 
 const filterItems = [
   {key: 'all', value: 'Todos'},
@@ -79,7 +80,7 @@ const modal = ref({
   key: '',
   itemId: '',
   show: false,
-  component: null
+  component: {}
 })
 
 function create() {
@@ -117,21 +118,11 @@ const headers = [
   {key: 'expiredAt', label: 'Expira em'},
 ]
 
-const data = {
-  items: [
-    {id: 1, title: 'João', description: 'Nome', status: 'ACTIVE', createdAt: 'tet', expiredAt: 'dede'},
-    {id: 1, title: 'João', description: 'Nome', status: 'INACTIVE', createdAt: 'tet', expiredAt: 'dede'},
-    {id: 1, title: 'João', description: 'Nome', status: 'INACTIVE', createdAt: 'tet', expiredAt: 'dede'},
-    {id: 1, title: 'João', description: 'Nome', status: 'ACTIVE', createdAt: 'tet', expiredAt: 'dede'},
-    {id: 1, title: 'João', description: 'Nome', status: 'INACTIVE', createdAt: 'tet', expiredAt: 'dede'},
-  ],
-  meta: {
-    current_page: 2,
-    from: 1,
-    last_page: 3,
-    per_page: 20,
-    to: 0,
-    total: 3,
-  }
+async function fetchCourses () {
+  return await new CourseService().index()
 }
+
+const {pending, data} = useAsyncData(await fetchCourses)
+
+console.log(fetchCourses())
 </script>

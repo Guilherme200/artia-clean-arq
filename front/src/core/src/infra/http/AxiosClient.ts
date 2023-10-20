@@ -1,6 +1,6 @@
-require('dotenv').config();
 import axios, {AxiosInstance} from 'axios';
 import HttpClient from '#/infra/http/HttpClient';
+import {ConfigBaseUrl} from "../../../config";
 
 export class AxiosClient implements HttpClient {
 
@@ -32,7 +32,7 @@ export class AxiosClient implements HttpClient {
 
   create(): AxiosInstance {
     return axios.create({
-      baseURL: process.env.API_URL,
+      baseURL: ConfigBaseUrl,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

@@ -1,10 +1,9 @@
 import {CourseService} from "#/domain/course/CourseService";
 import {BaseService, BaseServiceInterface} from "#/domain/shared/BaseService";
 import {Course} from "#/domain/course/Course";
-import apiRoutes from "#/routes/api";
 
 describe('BaseService', () => {
-  const props: BaseServiceInterface = {data: Course, url: apiRoutes.courses.base}
+  const props: BaseServiceInterface = {data: Course, url: '/api/courses'}
   const service = new BaseService(props);
 
   test('Test method index', async () => {

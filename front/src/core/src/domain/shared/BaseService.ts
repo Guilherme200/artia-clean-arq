@@ -1,11 +1,11 @@
-require('dotenv').config();
 import HttpClient from "#/infra/http/HttpClient";
 import {AxiosClient} from "#/infra/http/AxiosClient";
 import {PaginationInterface, RequestInterface} from "#/domain/shared/RequestInterface";
+import {ConfigHttpClient} from "../../../config";
 
 export interface BaseServiceInterface {
   data: any,
-  url: string
+  url: string,
 }
 
 export class BaseService<T> {
@@ -20,8 +20,7 @@ export class BaseService<T> {
   }
 
   private setDefaultFetch() {
-    const httpClient = process.env.HTTP_CLIENT
-    switch (httpClient) {
+    switch (ConfigHttpClient) {
       case 'axios':
         return new AxiosClient()
       default:
