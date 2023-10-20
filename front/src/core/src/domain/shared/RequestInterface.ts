@@ -16,3 +16,9 @@ export interface PaginationInterface<T> {
 export interface RequestInterface<T> {
   item: T;
 }
+
+export interface RequestErrorInterface {
+  status: number;
+  message: string;
+  errors?: any[];
+}

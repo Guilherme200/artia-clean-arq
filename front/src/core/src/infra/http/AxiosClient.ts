@@ -8,12 +8,31 @@ export class AxiosClient implements HttpClient {
 
   constructor() {
     this.instance = this.create()
+    this.instance.interceptors.response.use((response: any) => {
+      return response;
+    }, (error: any) => {
+      const errors: any = [];
+      const status: number = error.response.status || 500
+      const statusText: number = error.response.statusText || 'Request rejected'
+
+      if (status === 422) {
+        const responseErrors = error.response.data.errors
+        for (const [field, message] of Object.entries(responseErrors)) {
+          // @ts-ignore
+          errors[field] = message[0]
+        }
+      }
+      return Promise.reject({
+        status: status,
+        message: statusText,
+        errors: errors
+      });
+    });
   }
 
   create(): AxiosInstance {
     return axios.create({
       baseURL: process.env.API_URL,
-      withCredentials: true,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -22,7 +41,7 @@ export class AxiosClient implements HttpClient {
   }
 
   async request<T>(options: object): Promise<T> {
-    const response = await this.instance(options)
+    const response = await this.instance.request(options)
     return response.data
   }
 
