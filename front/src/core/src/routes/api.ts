@@ -1,6 +1,6 @@
 const apiRoutes = {
   courses: {
-    base: '/apicourses',
+    base: '/api/courses',
   },
 }
 

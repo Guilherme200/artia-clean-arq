@@ -39,22 +39,25 @@ export abstract class BaseService<T> {
   }
 
   async get(id: number): Promise<RequestInterface<T>> {
-    const response = await this.fetch.get<RequestInterface<T>>(`${this.url}/${id}`)
-    return {item: new this.data(response)}
+    return await this.fetch.get<RequestInterface<T>>(`${this.url}/${id}`).then((response: any) => {
+      return {item: new this.data(response)}
+    }).catch((error: any) => error)
   }
 
   async create(data: any): Promise<RequestInterface<T>> {
-    const response = await this.fetch.post<RequestInterface<T>>(this.url, data);
-    return {item: new this.data(response)}
+    return await this.fetch.post<RequestInterface<T>>(this.url, data).then((response: any) => {
+      return {item: new this.data(response)}
+    }).catch((error: any) => error)
   }
 
   async update(id: number, data: any): Promise<RequestInterface<T>> {
     data['_method'] = 'PUT'
-    const response = await this.fetch.put<RequestInterface<T>>(`${this.url}/${id}`, data)
-    return {item: new this.data(response)}
+    return await this.fetch.put<RequestInterface<T>>(`${this.url}/${id}`, data).then((response: any) => {
+      return {item: new this.data(response)}
+    }).catch((error: any) => error)
   }
 
   async destroy(id: number): Promise<any> {
-    return await this.fetch.delete<any>(`${this.url}/${id}`);
+    return await this.fetch.delete<any>(`${this.url}/${id}`).catch((error: any) => error);
   }
 }
