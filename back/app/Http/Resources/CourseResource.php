@@ -13,7 +13,7 @@ class CourseResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'video' => 'url',
+            'video' => $this->video,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
             'expiredAt' => $this->expired_at,

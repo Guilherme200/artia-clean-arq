@@ -17,6 +17,10 @@ class UpdateCourseAction
             'expired_at' => data_get($data, 'expiredAt'),
         ]);
 
+        if ($video = data_get($data, 'video')) {
+            $course->addMedia($video)->toMediaCollection('video');
+        }
+
         return $course;
     }
 }
