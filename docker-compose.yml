@@ -1,7 +1,12 @@
 version: '3'
 
+volumes:
+  app-postgres-data:
+    driver: local
+
 services:
   app:
+    container_name: artia-app
     build:
       context: .
       dockerfile: docker/front/Dockerfile
@@ -9,4 +14,26 @@ services:
       - ./front:/app
     command: npm run dev
     ports:
-      - '81:3000'
+      - '80:3000'
+
+  api:
+    container_name: artia-api
+    image: webdevops/php-nginx:8.1-alpine
+    volumes:
+      - ./back:/app
+    ports:
+      - 81:80
+    working_dir: /app
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - PHP_MEMORY_LIMIT=256M
+      - php.opcache.enable_cli=1
+
+  postgres:
+    image: postgres:15-alpine
+    volumes:
+      - app-postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=app_dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
