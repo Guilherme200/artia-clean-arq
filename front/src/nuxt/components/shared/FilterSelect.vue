@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import {getQueryParam, setQueryParam} from '~/composables/route-helpers';
 
 const props = defineProps({
   selected: {
@@ -24,16 +23,16 @@ const props = defineProps({
   },
 })
 
-const query = `filter[${props.filter}]`
+const query = props.filter
 const mutableValue = ref(props.selected);
 
-watch(mutableValue, (value) => setQueryParam(query, value));
+watch(mutableValue, (value:any) => setQueryParam(query, value));
 
 onMounted(() => {
   const param = getQueryParam(query)
   if (!param || typeof param === 'undefined') {
     mutableValue.value = props.selected
-    setQueryParam(query, props.selected)
+    setQueryParam(query, mutableValue.value)
   } else {
     mutableValue.value = param
   }

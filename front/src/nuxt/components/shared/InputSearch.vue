@@ -14,10 +14,10 @@
 <script setup lang="ts">
 import {getQueryParam, setQueryParam} from '~/composables/route-helpers';
 
-const query = 'filter[query]'
+const query = 'query'
 const mutableValue = ref('');
 
-watch(mutableValue, (value:any) => setQueryParam(query, value));
+watch(mutableValue, (value:any) => setTimeout(() => setQueryParam(query, value), 300));
 
 onMounted(() => {
   const param = getQueryParam(query)

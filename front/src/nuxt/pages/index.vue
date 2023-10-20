@@ -32,23 +32,23 @@
     </div>
 
     <div class="flex w-full mt-4">
-<!--      <DataTable-->
-<!--        :loading="false"-->
-<!--        :headers="headers"-->
-<!--        :items="data.data"-->
-<!--        :pagination="data.meta"-->
-<!--        @show="(id) => show(id)"-->
-<!--        @edit="(id) => edit(id)"-->
-<!--        @destroy="(id) => destroy(id)"-->
-<!--      >-->
-<!--        <template #columnStatus="{item}">-->
-<!--          <span-->
-<!--            class="badge text-base-100 gap-2"-->
-<!--            :class="item?.status === 'ACTIVE' ? 'badge-success' : 'badge-error'">-->
-<!--            {{ item?.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}-->
-<!--          </span>-->
-<!--        </template>-->
-<!--      </DataTable>-->
+      <DataTable
+        :loading="pending"
+        :headers="headers"
+        :items="data?.data"
+        :pagination="data?.meta"
+        @show="(id) => show(id)"
+        @edit="(id) => edit(id)"
+        @destroy="(id) => destroy(id)"
+      >
+        <template #columnStatus="{item}">
+          <span
+            class="badge text-base-100 gap-2"
+            :class="item?.status === 'ACTIVE' ? 'badge-success' : 'badge-error'">
+            {{ item?.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}
+          </span>
+        </template>
+      </DataTable>
     </div>
 
     <component
@@ -69,6 +69,8 @@ import CreateCourse from '~/components/courses/CreateCourse.vue';
 import UpdateCourse from '~/components/courses/UpdateCourse.vue';
 import DestroyCourse from '~/components/courses/DestroyCourse.vue';
 import {CourseService} from "core/src/domain/course/CourseService";
+
+const route = useRoute()
 
 const filterItems = [
   {key: 'all', value: 'Todos'},
@@ -119,10 +121,9 @@ const headers = [
 ]
 
 async function fetchCourses () {
-  return await new CourseService().index()
+  return await new CourseService().index(route.query)
 }
 
-const {pending, data} = useAsyncData(await fetchCourses)
-
-console.log(fetchCourses())
+const {pending, data, refresh} = useAsyncData(await fetchCourses)
+useRouteQueryWatcher(refresh)
 </script>

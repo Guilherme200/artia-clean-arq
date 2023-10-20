@@ -25,6 +25,7 @@ const form = ref({
   video: null,
   title: null,
   description: null,
+  expiredAt: (new Date()).toString()
 })
 
 function submit() {
