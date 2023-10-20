@@ -8,12 +8,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Domains\Course\Actions\CreateCourseAction;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['status' => 'index']);
+        $queryBuilder = Course::query();
+
+        if ($query = $request->query('query')) {
+            $queryBuilder
+                ->where('title', 'ilike', "%$query")
+                ->orWhere('description', 'ilike', "%$query");
+        }
+
+        if ($status = $request->query('status')) {
+            $now = now()->format('Y-m-d');
+            if ($status === 'active')
+                $queryBuilder->where('expired_at', '>=', $now);
+            if ($status === 'inactive') {
+                $queryBuilder->where('expired_at', '<', $now);
+            }
+        }
+
+        $courses = $queryBuilder->paginate(5);
+
+        return CourseResource::collection($courses);
     }
 
     public function store(CourseRequest $request): CourseResource
