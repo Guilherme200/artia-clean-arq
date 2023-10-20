@@ -37,11 +37,19 @@ print_manual() {
 
 setup_environment() {
   echo -e "[\e[33mWAIT\e[39m] Starting environment"
+  docker compose stop
   docker compose build
   docker compose run app npm install
   docker compose run -u root app chown -R $USER_UID:$USER_UID /app
-  echo $USER_UID
   docker compose up -d --remove-orphans
+
+  docker compose exec api cp .env.example .env
+  docker compose exec api composer install
+  docker compose exec api php artisan migrate:fresh --seed
+  docker compose exec api php artisan key:generate
+  docker compose exec api php artisan storage:link
+  docker compose exec -u root api chmod -R 777 /app/storage
+
   if [ $? -eq 0 ]; then
     echo -e "[\e[32mOK\e[39m] Environment started"
   else
@@ -55,7 +63,9 @@ setup_environment() {
 start_environment() {
   echo -e "[\e[33mWAIT\e[39m] Starting environment"
   docker compose stop
+  docker compose run -u root app chown -R $USER_UID:$USER_UID /app
   docker compose up -d --remove-orphans
+
   if [ $? -eq 0 ]; then
     echo -e "[\e[32mOK\e[39m] Environment started"
   else
@@ -75,7 +85,7 @@ stop_environment() {
 
 start_tinker() {
   echo -e "[\e[33mWAIT\e[39m] Starting tinker"
-  docker compose exec -u root app php artisan tinker
+  docker compose exec -u root api php artisan tinker
   echo -e "[\e[32mOK\e[39m] tinker started"
   exit
 }
