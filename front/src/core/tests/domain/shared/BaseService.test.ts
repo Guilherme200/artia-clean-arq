@@ -1,7 +1,12 @@
 import {CourseService} from "#/domain/course/CourseService";
+import {BaseService, BaseServiceInterface} from "#/domain/shared/BaseService";
+import {Course} from "#/domain/course/Course";
+import apiRoutes from "#/routes/api";
 
-describe('CourseService', () => {
-  const service = new CourseService();
+describe('BaseService', () => {
+  const props: BaseServiceInterface = {data: Course, url: apiRoutes.courses.base}
+  const service = new BaseService(props);
+
   test('Test method index', async () => {
     const result = await service.index()
     expect(result).not.toBeNull()

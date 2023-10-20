@@ -1,19 +1,19 @@
 require('dotenv').config();
 import HttpClient from "#/infra/http/HttpClient";
 import {AxiosClient} from "#/infra/http/AxiosClient";
-import {PaginationInterface, RequestErrorInterface, RequestInterface} from "#/domain/shared/RequestInterface";
+import {PaginationInterface, RequestInterface} from "#/domain/shared/RequestInterface";
 
 export interface BaseServiceInterface {
   data: any,
   url: string
 }
 
-export abstract class BaseService<T> {
+export class BaseService<T> {
   protected fetch: HttpClient;
   protected readonly data: any;
   protected readonly url: string;
 
-  protected constructor(props: BaseServiceInterface) {
+  constructor(props: BaseServiceInterface) {
     this.url = props.url || '';
     this.data = props.data || null
     this.fetch = this.setDefaultFetch()
