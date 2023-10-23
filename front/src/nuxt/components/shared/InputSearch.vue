@@ -12,7 +12,6 @@
 
 
 <script setup lang="ts">
-import {getQueryParam, setQueryParam} from '~/composables/route-helpers';
 
 const query = 'query'
 const mutableValue = ref('');

@@ -12,8 +12,8 @@ export class AxiosClient implements HttpClient {
       return response;
     }, (error: any) => {
       const errors: any = [];
-      const status: number = error.response.status || 500
-      const statusText: number = error.response.statusText || 'Request rejected'
+      const status: number = error.response?.status || 500
+      const statusText: number = error.response?.statusText || 'Request rejected'
 
       if (status === 422) {
         const responseErrors = error.response.data.errors
