@@ -37,17 +37,18 @@ print_manual() {
 
 setup_environment() {
   echo -e "[\e[33mWAIT\e[39m] Starting environment"
-#  docker compose stop
+  docker compose stop
   docker compose build
+
   docker compose run app npm ci
   docker compose up -d --remove-orphans
 
-#  docker compose run api cp .env.example .env
-#  docker compose run api composer install
-#  docker compose run api php artisan migrate:fresh --seed
-#  docker compose run api php artisan key:generate
-#  docker compose run api php artisan storage:link
-#  docker compose run -u root api chmod -R 777 /app/storage
+  docker compose run api cp .env.example .env
+  docker compose run api composer install
+  docker compose run api php artisan migrate:fresh --seed
+  docker compose run api php artisan key:generate
+  docker compose run api php artisan storage:link
+  docker compose run -u root api chmod -R 777 /app/storage
 
   if [ $? -eq 0 ]; then
     echo -e "[\e[32mOK\e[39m] Environment started"

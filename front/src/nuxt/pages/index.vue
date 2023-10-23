@@ -124,6 +124,6 @@ async function fetchCourses () {
   return await new CourseService().index(route.query)
 }
 
-const {pending, data, refresh} = useAsyncData(fetchCourses)
+const {pending, data, refresh} = useAsyncData(await fetchCourses)
 useRouteQueryWatcher(refresh)
 </script>
