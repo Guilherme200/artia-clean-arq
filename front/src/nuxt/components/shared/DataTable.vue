@@ -92,6 +92,7 @@ defineProps({
 const isEmpty = _isEmpty;
 
 function changePage(page: any) {
+  setQueryParam('page', page)
   emit('onChangePage', page)
 }
 
