@@ -21,6 +21,7 @@ import FormData from '~/components/shared/form/FormData.vue';
 import ButtonForm from "~/components/shared/form/ButtonForm.vue";
 import FormCourse from '~/components/courses/partials/FormCourse.vue';
 import {CourseService} from "core/src/domain/course/CourseService";
+import {useNotify} from '../../composables/helpers';
 
 const errors = ref([])
 const isValidForm = ref(null)
@@ -37,12 +38,19 @@ const form = ref({
 async function onSubmit(submit: any) {
   const headers = {'Content-Type': 'multipart/form-data'};
   const response = await new CourseService().create(submit, {headers})
-  if (response.status === 201) {
+  if (response.item) {
     emit('close');
+    useNotify('success', 'Curso cadastrado com sucesso!')
   }
 
   if (response.status === 422) {
     errors.value = response.errors
+    useNotify('error', 'Por favor, preencha o formulário corretamente.')
+  }
+
+  if (response.status === 500) {
+    errors.value = response.errors
+    useNotify('error', 'Houve um erro. Por favor, tente novamente mais tarde.')
   }
 }
 </script>
