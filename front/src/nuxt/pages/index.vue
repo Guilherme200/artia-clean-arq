@@ -42,12 +42,13 @@
         @destroy="(id) => destroy(id)"
       >
         <template #columnStatus="{item}">
-          <span
-            class="badge text-base-100 gap-2"
-            :class="item?.status === 'ACTIVE' ? 'badge-success' : 'badge-error'">
-            {{ item?.status === 'ACTIVE' ? 'Ativo' : 'Inativo' }}
+          <span class="badge text-base-100 gap-2" :class="!!item?.status ? 'badge-success' : 'badge-error'">
+            {{ !!item?.status ? 'Ativo' : 'Inativo' }}
           </span>
         </template>
+
+        <template #columnCreatedAt="{item}">{{ formatDate(item.createdAt) }}</template>
+        <template #columnExpiredAt="{item}">{{ formatDate(item.expiredAt) }}</template>
       </DataTable>
     </div>
 
@@ -69,6 +70,7 @@ import CreateCourse from '~/components/courses/CreateCourse.vue';
 import UpdateCourse from '~/components/courses/UpdateCourse.vue';
 import DestroyCourse from '~/components/courses/DestroyCourse.vue';
 import {CourseService} from "core/src/domain/course/CourseService";
+import dayjs from "dayjs";
 
 const route = useRoute()
 
@@ -110,6 +112,10 @@ function destroy(id: string) {
   modal.value.key = `destroy-${id}`
   modal.value.itemId = id.toString()
   modal.value.component = markRaw(DestroyCourse)
+}
+
+function formatDate(date: string) {
+  return dayjs(date).format('DD/MM/YYYY HH:mm')
 }
 
 function close(value: boolean) {

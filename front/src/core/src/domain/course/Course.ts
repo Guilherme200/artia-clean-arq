@@ -5,6 +5,7 @@ export class Course {
   public title: string;
   public description: string;
   public video: string;
+  public status: boolean;
   public expiredAt: string;
   public updatedAt: string;
   public createdAt: string;
@@ -14,6 +15,7 @@ export class Course {
     this.title = data.title
     this.description = data.description
     this.video = data.video
+    this.status = data.status
     this.expiredAt = data.expiredAt
     this.updatedAt = data.updatedAt
     this.createdAt = data.createdAt

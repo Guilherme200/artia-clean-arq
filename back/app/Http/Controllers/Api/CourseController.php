@@ -23,11 +23,10 @@ class CourseController extends Controller
         }
 
         if ($status = $request->query('status')) {
-            $now = now()->format('Y-m-d');
             if ($status === 'active')
-                $queryBuilder->where('expired_at', '>=', $now);
+                $queryBuilder->where('expired_at', '>=', now());
             if ($status === 'inactive') {
-                $queryBuilder->where('expired_at', '<', $now);
+                $queryBuilder->where('expired_at', '<', now());
             }
         }
 

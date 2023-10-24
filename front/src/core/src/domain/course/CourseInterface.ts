@@ -17,6 +17,7 @@ export interface CourseInterface {
   title: string;
   description: string;
   video: string;
+  status: boolean;
   expiredAt: string;
   updatedAt: string;
   createdAt: string;
