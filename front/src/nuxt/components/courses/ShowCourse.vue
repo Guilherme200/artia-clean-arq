@@ -3,7 +3,7 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">Visualizar curso</h3>
       <div class="card border-none mt-5">
-        <video ref="videoElement" :src="videoUrl(data?.item)" controls width="400" />
+        <video ref="videoElement" v-if="videoUrl" :src="videoUrl" controls width="800" height="auto" />
         <div class="flex justify-end mt-5">
           <button type="button" class="btn bg-base-100" @click="emit('close')">Sair</button>
         </div>
@@ -15,18 +15,19 @@
 <script setup lang="ts">
 import {CourseService} from 'core/src/domain/course/CourseService';
 
-const videoElement = ref()
+const videoUrl = ref(null)
 const emit = defineEmits(['close'])
 const props = defineProps({itemId: {type: String, required: true}})
 
-async function getCourseVideo() {
-  return await new CourseService().getVideo(props.itemId)
+async function getCourse() {
+  return await new CourseService().get(props.itemId)
 }
 
-const {data} = useAsyncData(await getCourseVideo)
+const {data} = useAsyncData(await getCourse)
 
-function videoUrl(videoBinaryData: any) {
-  const blob = new Blob([videoBinaryData], {type: 'video/mp4'});
-  return URL.createObjectURL(blob);
-}
+watch(() => data.value, (value) => {
+  videoUrl.value = _get(value, 'item.video', '');
+}, {deep: true})
+
+
 </script>
