@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-6 py-8 mx-auto">
+  <div class="container px-6 py-8 mx-auto min-h-[85vh]">
     <h3 class="text-3xl font-bold text-gray-700">Cursos</h3>
 
     <div class="mt-8 grid md:grid-cols-3 gap-4">

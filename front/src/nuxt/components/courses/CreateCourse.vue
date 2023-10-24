@@ -34,6 +34,7 @@ const form = ref({
 })
 
 async function onSubmit(submit: any) {
+  new FormData()
   const response = await new CourseService().create(submit)
   if (response.status === 422) {
     errors.value = response.errors

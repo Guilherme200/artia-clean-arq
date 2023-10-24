@@ -10,13 +10,12 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 
 const query = 'query'
 const mutableValue = ref('');
 
-watch(mutableValue, (value:any) => setTimeout(() => setQueryParam(query, value), 300));
+watch(mutableValue, (value: any) => setTimeout(() => setQueryParam(query, value), 500));
 
 onMounted(() => {
   const param = getQueryParam(query)
