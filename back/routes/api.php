@@ -18,5 +18,6 @@ use App\Http\Controllers\Api\CourseController;
 Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/courses', [CourseController::class, 'store']);
 Route::get('/courses/{course}', [CourseController::class, 'show']);
+Route::get('/courses/{course}/video', [CourseController::class, 'video']);
 Route::put('/courses/{course}', [CourseController::class, 'update']);
 Route::delete('/courses/{course}', [CourseController::class, 'destroy']);

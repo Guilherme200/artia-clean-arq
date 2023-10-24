@@ -3,17 +3,7 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">Visualizar curso</h3>
       <div class="card border-none mt-5">
-        <figure>
-          <img
-            src="https://s24534.pcdn.co/carreira-sucesso/wp-content/uploads/sites/3/2022/07/qualificacao-cursos-online.jpg"
-            alt="Shoes"
-          />
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">{{ item?.title }}</h2>
-          <p>{{ item?.description }}</p>
-        </div>
-
+        <video ref="videoElement" :src="videoUrl(data?.item)" controls width="400" />
         <div class="flex justify-end mt-5">
           <button type="button" class="btn bg-base-100" @click="emit('close')">Sair</button>
         </div>
@@ -23,17 +13,20 @@
 </template>
 
 <script setup lang="ts">
+import {CourseService} from 'core/src/domain/course/CourseService';
+
+const videoElement = ref()
 const emit = defineEmits(['close'])
-defineProps({itemId: {type: String, required: true}})
+const props = defineProps({itemId: {type: String, required: true}})
 
-const item = ref({
-  video: null,
-  title: 'dewdew',
-  description: 'dewdwdew',
-})
+async function getCourseVideo() {
+  return await new CourseService().getVideo(props.itemId)
+}
 
-function submit() {
-  console.log(form.value)
-  emit('close')
+const {data} = useAsyncData(await getCourseVideo)
+
+function videoUrl(videoBinaryData: any) {
+  const blob = new Blob([videoBinaryData], {type: 'video/mp4'});
+  return URL.createObjectURL(blob);
 }
 </script>

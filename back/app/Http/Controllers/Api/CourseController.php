@@ -47,6 +47,12 @@ class CourseController extends Controller
         return CourseResource::make($course);
     }
 
+    public function video(Course $course)
+    {
+        $path = $course->getFirstMedia('video')->getPath();
+        return response()->file($path, ['Content-Type' => 'video/mp4']);
+    }
+
     public function update(CourseRequest $request, Course $course): CourseResource
     {
         $data = $request->validated();
