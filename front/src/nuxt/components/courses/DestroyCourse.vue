@@ -34,10 +34,19 @@
 </template>
 
 <script setup lang="ts">
+import {useNotify} from '../../composables/helpers';
+import {CourseService} from 'core/src/domain/course/CourseService';
+
 const emit = defineEmits(['close'])
-defineProps({itemId: {type: String, required: true}})
+const props = defineProps({itemId: {type: String, required: true}})
 
 function destroy() {
-  emit('close')
+  new CourseService().destroy(props.itemId).then(() => {
+    emit('close');
+    useNotify('success', 'Curso deletado com sucesso!')
+  }).catch(() => {
+    useNotify('error', 'Houve um erro ao deletar o curso. Por favor, tente novamente mais tarde.')
+
+  })
 }
 </script>

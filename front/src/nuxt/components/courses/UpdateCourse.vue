@@ -68,8 +68,7 @@ async function onSubmit(submit: any) {
   }
 
   if (response.status === 500) {
-    errors.value = response.errors
-    useNotify('error', 'Houve um erro. Por favor, tente novamente mais tarde.')
+    useNotify('error', 'Houve um erro editar o curso. Por favor, tente novamente mais tarde.')
   }
 }
 </script>
