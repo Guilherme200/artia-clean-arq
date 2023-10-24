@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import {useField} from "vee-validate";
+import {useField, validate} from "vee-validate";
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -58,23 +58,10 @@ watch(errorMessage, (payload) => error.value = payload)
 watch(() => props.error, (payload) => error.value = payload)
 
 const fileName = computed(() => file.value?.name);
-const fileExtension = computed(() => fileName.value?.substr(fileName.value?.lastIndexOf(".") + 1));
-const fileMimeType = computed(() => file.value?.type);
 
-const uploadFile = (event) => {
+const uploadFile = (event: any) => {
   file.value = event?.target?.files[0];
-  const reader = new FileReader();
-  reader.readAsDataURL(file.value);
-  reader.onload = async () => {
-    const encodedFile = reader.result.split(",")[1];
-    const data = {
-      file: encodedFile,
-      fileName: fileName.value,
-      fileExtension: fileExtension.value,
-      fileMimeType: fileMimeType.value,
-    };
-    emit('update:modelValue', data)
-  };
+  emit('update:modelValue', file.value)
 }
 </script>
 

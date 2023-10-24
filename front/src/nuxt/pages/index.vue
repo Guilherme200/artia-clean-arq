@@ -56,7 +56,7 @@
       :is="modal.component"
       :key="modal.key"
       :item-id="modal.itemId"
-      @close="(value) => modal.show = value" />
+      @close="(value) => close(value)" />
   </div>
 </template>
 
@@ -112,6 +112,11 @@ function destroy(id: string) {
   modal.value.component = markRaw(DestroyCourse)
 }
 
+function close(value: boolean) {
+  modal.value.show = value
+  refresh()
+}
+
 const headers = [
   {key: 'title', label: 'Título'},
   {key: 'description', label: 'Descrição'},
@@ -120,7 +125,7 @@ const headers = [
   {key: 'expiredAt', label: 'Expira em'},
 ]
 
-async function fetchCourses () {
+async function fetchCourses() {
   return await new CourseService().index(route.query)
 }
 

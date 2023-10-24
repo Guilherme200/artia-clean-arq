@@ -3,7 +3,7 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">Novo curso</h3>
       <div class="px-2">
-        <FormData @submit="onSubmit" @isValid="(isValid) => isValidForm = isValid">
+        <FormData @submit="onSubmit" @isValid="(isValid) => isValidForm = isValid" enctype="multipart/form-data">
           <FormCourse v-model="form" :errors="errors" />
           <div class="flex justify-between mt-5">
             <button type="button" class="btn bg-base-100" @click="emit('close')">Cancelar</button>
@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs';
 import FormData from '~/components/shared/form/FormData.vue';
 import ButtonForm from "~/components/shared/form/ButtonForm.vue";
 import FormCourse from '~/components/courses/partials/FormCourse.vue';
@@ -30,12 +31,16 @@ const form = ref({
   video: null,
   title: null,
   description: null,
-  expiredAt: (new Date()).toString()
+  expiredAt: dayjs().format('YYYY-MM-DD')
 })
 
 async function onSubmit(submit: any) {
-  new FormData()
-  const response = await new CourseService().create(submit)
+  const headers = {'Content-Type': 'multipart/form-data'};
+  const response = await new CourseService().create(submit, {headers})
+  if (response.status === 201) {
+    emit('close');
+  }
+
   if (response.status === 422) {
     errors.value = response.errors
   }

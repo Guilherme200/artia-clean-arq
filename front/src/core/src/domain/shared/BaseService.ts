@@ -43,8 +43,8 @@ export class BaseService<T> {
     }).catch((error: any) => error)
   }
 
-  async create(data: any): Promise<RequestInterface<T>> {
-    return await this.fetch.post<RequestInterface<T>>(this.url, data).then((response: any) => {
+  async create(data: any, options: any = null): Promise<RequestInterface<T>> {
+    return await this.fetch.post<RequestInterface<T>>(this.url, data, options).then((response: any) => {
       return {item: new this.data(response)}
     }).catch((error: any) => error)
   }
