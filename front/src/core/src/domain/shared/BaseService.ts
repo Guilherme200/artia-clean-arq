@@ -39,21 +39,22 @@ export class BaseService<T> {
 
   async get(id: number): Promise<RequestInterface<T>> {
     return await this.fetch.get<RequestInterface<T>>(`${this.url}/${id}`).then((response: any) => {
-      return {item: new this.data(response)}
+      return {item: new this.data(response.data)}
     }).catch((error: any) => error)
   }
 
   async create(data: any, options: any = null): Promise<RequestInterface<T>> {
     return await this.fetch.post<RequestInterface<T>>(this.url, data, options).then((response: any) => {
-      return {item: new this.data(response)}
+      return {item: new this.data(response.data)}
     }).catch((error: any) => error)
   }
 
-  async update(id: number, data: any): Promise<RequestInterface<T>> {
+  async update(id: number, data: any, options: any = null): Promise<RequestInterface<T>> {
     data['_method'] = 'PUT'
-    return await this.fetch.put<RequestInterface<T>>(`${this.url}/${id}`, data).then((response: any) => {
-      return {item: new this.data(response)}
-    }).catch((error: any) => error)
+    return await this.fetch.post<RequestInterface<T>>(`${this.url}/${id}`, data, options)
+      .then((response: any) => {
+        return {item: new this.data(response.data)}
+      }).catch((error: any) => error)
   }
 
   async destroy(id: number): Promise<any> {
