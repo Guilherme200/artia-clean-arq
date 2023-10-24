@@ -4,6 +4,18 @@ export default {
   theme: {
     extend: {},
   },
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          ...require("daisyui/src/theming/themes")["[data-theme=dark]"]
+        },
+        light: {
+          ...require("daisyui/src/theming/themes")["[data-theme=light]"]
+        },
+      },
+    ],
+  },
   plugins: [require("daisyui")],
 }
 

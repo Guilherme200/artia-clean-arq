@@ -5,7 +5,7 @@
       <span class="text-error" v-if="required">*</span>
     </label>
     <div class="flex justify-center items-center w-full">
-      <label for="dropzone-file" class="dropzone hover:bg-gray-100" :class="{'!border-red-300' : error}">
+      <label for="dropzone-file" class="dropzone hover:bg-base-100" :class="{'!border-red-300' : error}">
         <div class="flex flex-col justify-center items-center pt-5 pb-6">
           <Icon name="mdi:cloud-upload" class="text-5xl text-gray-500" />
           <div class="mb-2 text-sm text-gray-500 dark:text-gray-400 block">
@@ -13,8 +13,8 @@
             <div class="text-center">ou arraste e solte</div>
           </div>
           <div class="block mt-5">
-            <p class="text-xs text-center text-gray-500 dark:text-gray-400">MP4 ou MOV (MAX. 500 MB)</p>
-            <p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-3">Arquivo: {{ fileName }}</p>
+            <p class="text-xs text-center text-gray-500">MP4 ou MOV (MAX. 500 MB)</p>
+            <p class="text-xs text-center text-gray-500 mt-3">Arquivo: {{ fileName }}</p>
           </div>
         </div>
         <input v-bind="{...$attrs}" id="dropzone-file" type="file" class="hidden" @change="uploadFile">
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import {useField, validate} from "vee-validate";
+import {useField} from "vee-validate";
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
@@ -67,6 +67,6 @@ const uploadFile = (event: any) => {
 
 <style scoped>
 .dropzone {
-  @apply flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer
+  @apply flex flex-col justify-center items-center w-full h-52 rounded-lg border border-dashed border-gray-500 cursor-pointer
 }
 </style>

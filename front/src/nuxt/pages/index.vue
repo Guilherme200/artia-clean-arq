@@ -1,6 +1,6 @@
 <template>
   <div class="container px-6 py-8 mx-auto min-h-[85vh]">
-    <h3 class="text-3xl font-bold text-gray-700">Cursos</h3>
+    <h3 class="text-3xl font-bold">Cursos</h3>
 
     <div class="mt-8 grid md:grid-cols-3 gap-4">
       <DashboardCounter
@@ -25,7 +25,7 @@
     <div class="w-full grid md:grid-cols-5 gap-2 mt-8">
       <InputSearch class="md:col-span-3" />
       <FilterSelect :items="filterItems" filter="status" selected="active" />
-      <button class="btn btn-outline bg-base-100 border-gray-500" @click="create()">
+      <button class="btn btn-primary" @click="create()">
         <Icon name="material-symbols:add" class="text-xl" />
         Novo curso
       </button>

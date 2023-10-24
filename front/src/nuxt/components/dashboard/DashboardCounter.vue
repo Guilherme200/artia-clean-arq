@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+  <div class="w-full flex items-center px-5 py-6 bg-base-100 rounded-md shadow-sm">
     <div class="p-3 bg-opacity-75 rounded-full" :class="classStatus">
       <Icon v-if="icon" :name="icon" color="white" class="text-3xl" />
     </div>
 
     <div class="mx-5">
-      <h4 class="text-2xl font-semibold text-gray-700">{{ value }}</h4>
-      <div class="text-gray-500">{{ label }}</div>
+      <h4 class="text-2xl font-semibold">{{ value }}</h4>
+      <div class="font-light">{{ label }}</div>
     </div>
   </div>
 </template>

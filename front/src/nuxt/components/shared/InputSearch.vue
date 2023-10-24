@@ -1,6 +1,6 @@
 <template>
   <div class="form-control relative">
-    <Icon name="material-symbols:search" color="black" class="absolute text-lg text-gray-400 top-4 left-4" />
+    <Icon name="material-symbols:search" class="absolute text-lg top-4 left-4" />
     <input
       v-model="mutableValue"
       type="text"

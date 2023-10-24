@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-theme="dark">
     <Navbar />
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-base-300">
      <slot />

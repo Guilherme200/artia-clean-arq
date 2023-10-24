@@ -1,47 +1,48 @@
 <template>
-  <div class="w-full flex overflow-x-auto">
+  <div class="w-full flex overflow-x-auto mt-5">
     <div
-      class="w-full inline-block min-w-full overflow-x-auto align-middle border-b border-gray-200 shadow sm:rounded-lg">
+      class="w-full inline-block min-w-full overflow-x-auto align-middle shadow sm:rounded-lg border border-base-100">
       <table class="w-full table table-zebra">
         <thead>
-        <tr class="w-full">
+        <tr class="w-full bg-base-100
+">
           <th v-for="header in headers" :key="header.key" class="header">{{ header.label }}</th>
           <th class="flex header justify-center" key="action">Ações</th>
         </tr>
         </thead>
-        <tbody class="bg-white">
-        <tr v-if="loading" key="loading">
+        <tbody>
+        <tr v-if="loading" key="loading" class="bg-base-100">
           <td colspan="100%" class="items">
             <div class="flex justify-center">
-              <span class="loading loading-dots loading-lg text-gray-500 font-medium" />
+              <span class="loading loading-dots loading-lg font-medium" />
             </div>
           </td>
         </tr>
-        <tr v-else v-for="item in items" :key="item.id || JSON.stringify(item)">
-          <td v-for="header in headers" :key="header.key" class="items">
+        <tr v-else v-for="item in items" :key="item.id || JSON.stringify(item)" class="bg-base-100">
+          <td v-for="header in headers" :key="header.key" class="px-6 py-4">
             <slot :name="columnSlotName(header.key)" :item="item">{{ getItemAttr(item, header.key) }}</slot>
           </td>
           <td class="flex items justify-center gap-1">
             <div class="tooltip" data-tip="Ver">
-              <button class="btn btn-square btn-outline btn-sm" @click="emit('show', item.id)">
-                <Icon name="bx:show" class="hover:text-white" />
+              <button class="btn btn-square btn-ghost btn-sm" @click="emit('show', item.id)">
+                <Icon name="bx:show" class="text-indigo-600" />
               </button>
             </div>
 
             <div class="tooltip" data-tip="Editar">
-              <button class="btn btn-square btn-outline btn-sm" @click="emit('edit', item.id)">
-                <Icon name="material-symbols:edit" class="hover:text-white" />
+              <button class="btn btn-square btn-ghost btn-sm" @click="emit('edit', item.id)">
+                <Icon name="material-symbols:edit" class="text-green-600" />
               </button>
             </div>
 
             <div class="tooltip" data-tip="Excluir">
-              <button class="btn btn-square btn-outline btn-sm" @click="emit('destroy', item.id)">
-                <Icon name="material-symbols:delete-sharp" class="hover:text-white" />
+              <button class="btn btn-square btn-ghost btn-sm" @click="emit('destroy', item.id)">
+                <Icon name="material-symbols:delete-sharp" class="text-red-600" />
               </button>
             </div>
           </td>
         </tr>
-        <tr v-if="isEmpty(items)">
+        <tr v-if="isEmpty(items)" class="bg-base-100">
           <slot name="emptyBody">
             <td class="items text-center" colspan="100%">
               <label>Nenhum item encontrado</label>
@@ -50,7 +51,7 @@
         </tr>
         </tbody>
       </table>
-      <div class="w-full flex justify-center mt-6">
+      <div class="w-full flex justify-center py-5 bg-base-100">
         <Pagination
           :total-pages="pagination?.last_page"
           :current-page="pagination?.current_page"
@@ -104,11 +105,7 @@ function columnSlotName(headerValue: string) {
 </script>
 
 <style scoped>
-.items {
-  @apply px-6 py-4 border-b border-gray-200
-}
-
 .header {
-  @apply px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50
+  @apply px-6 py-3 font-bold leading-4 tracking-wider text-left uppercase
 }
 </style>
