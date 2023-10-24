@@ -19,7 +19,8 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-icon',
     'nuxt-lodash',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt'
   ],
 
   lodash: {
