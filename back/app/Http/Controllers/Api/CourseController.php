@@ -14,8 +14,12 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-        $queryBuilder = Course::query();
+        $queryBuilderCount = Course::query();
+        $totalCourses = $queryBuilderCount->get()->count();
+        $totalCoursesActive = $queryBuilderCount->where('expired_at', '>=', now())->count();
+        $totalCoursesInactive = $queryBuilderCount->where('expired_at', '<', now())->count();
 
+        $queryBuilder = Course::query();
         if ($query = $request->query('query')) {
             $queryBuilder
                 ->where('title', 'ilike', "%$query")
@@ -32,7 +36,11 @@ class CourseController extends Controller
 
         $courses = $queryBuilder->paginate(5);
 
-        return CourseResource::collection($courses);
+        return CourseResource::collection($courses)->additional(['meta' => [
+            'totalCourses' => $totalCourses,
+            'totalCoursesActive' => $totalCoursesActive,
+            'totalCoursesInactive' => $totalCoursesInactive,
+        ]]);
     }
 
     public function store(CourseRequest $request): CourseResource
