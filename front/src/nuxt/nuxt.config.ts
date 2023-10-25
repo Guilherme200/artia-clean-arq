@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Tagsell',
+      title: 'Artia',
       htmlAttrs: {
         lang: 'pt-br',
       },
