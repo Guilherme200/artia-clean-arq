@@ -14,10 +14,5 @@
   "workspaces": [
     "./src/core",
     "./src/nuxt"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dayjs": "^1.11.10"
-  }
+  ]
 }
