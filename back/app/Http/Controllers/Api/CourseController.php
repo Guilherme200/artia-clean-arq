@@ -14,10 +14,9 @@ class CourseController extends Controller
 {
     public function index(Request $request)
     {
-        $queryBuilderCount = Course::query();
-        $totalCourses = $queryBuilderCount->get()->count();
-        $totalCoursesActive = $queryBuilderCount->where('expired_at', '>=', now())->count();
-        $totalCoursesInactive = $queryBuilderCount->where('expired_at', '<', now())->count();
+        $totalCourses = Course::query()->count();
+        $totalCoursesActive = Course::query()->where('expired_at', '>', now())->count();
+        $totalCoursesInactive = Course::query()->where('expired_at', '<=', now())->count();
 
         $queryBuilder = Course::query();
         if ($query = $request->query('query')) {

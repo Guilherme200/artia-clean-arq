@@ -4,19 +4,19 @@
 
     <div class="mt-8 grid md:grid-cols-3 gap-4">
       <DashboardCounter
-        value="8,282"
+        :value="_get(data, 'meta.totalCourses', 0)"
         status="info"
         label="Cursos"
         icon="material-symbols:shop-two-outline-sharp" />
 
       <DashboardCounter
-        value="4,141"
+        :value="_get(data, 'meta.totalCoursesActive', 0)"
         status="success"
         label="Cursos ativos"
         icon="material-symbols:shop-two-outline-sharp" />
 
       <DashboardCounter
-        value="4,141"
+        :value="_get(data, 'meta.totalCoursesInactive', 0)"
         status="error"
         label="Cursos inativos"
         icon="material-symbols:shop-two-outline-sharp" />

@@ -14,7 +14,7 @@
 const props = defineProps({
   icon: String,
   label: String,
-  value: String,
+  value: Number,
   status: String
 })
 
