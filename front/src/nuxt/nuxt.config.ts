@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-lodash',
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
   ],
 
   lodash: {
