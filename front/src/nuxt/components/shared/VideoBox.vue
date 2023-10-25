@@ -1,7 +1,6 @@
 <template>
   <video-player
     v-bind="{...$attrs}"
-    src="http://localhost:81/storage/2/ofertas.mp4"
     controls
     :loop="true"
     :volume="0.6"
@@ -19,3 +18,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.video-js {
+  min-height: 70vh !important;
+}
+</style>

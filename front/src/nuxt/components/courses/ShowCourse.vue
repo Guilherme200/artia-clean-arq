@@ -3,7 +3,7 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">Visualizar curso</h3>
       <div class="card border-none mt-5">
-        <VideoBox :src="data?.item?.video" />
+        <VideoBox :src="data?.item?.video" class="w-full max-h-96" />
         <div class="flex justify-end mt-5">
           <button type="button" class="btn bg-base-100" @click="emit('close')">Sair</button>
         </div>
@@ -26,3 +26,10 @@ async function getCourse() {
 
 const {data} = useAsyncData(await getCourse)
 </script>
+
+<style scoped>
+.modal-box {
+  max-width: 100% !important;
+  max-height: 100vh !important;
+}
+</style>
