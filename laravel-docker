@@ -63,7 +63,6 @@ setup_environment() {
 start_environment() {
   echo -e "[\e[33mWAIT\e[39m] Starting environment"
   docker compose stop
-  docker compose run -u root app chown -R $USER_UID:$USER_UID /app
   docker compose up -d --remove-orphans
 
   if [ $? -eq 0 ]; then
