@@ -3,7 +3,7 @@
     <div class="modal-box">
       <h3 class="font-bold text-lg">Visualizar curso</h3>
       <div class="card border-none mt-5">
-        <video ref="videoElement" v-if="videoUrl" :src="videoUrl" controls width="800" height="auto" />
+        <VideoBox :src="data?.item?.video" />
         <div class="flex justify-end mt-5">
           <button type="button" class="btn bg-base-100" @click="emit('close')">Sair</button>
         </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import VideoBox from '../shared/VideoBox.vue';
 import {CourseService} from 'core/src/domain/course/CourseService';
 
 const videoUrl = ref(null)
@@ -24,10 +25,4 @@ async function getCourse() {
 }
 
 const {data} = useAsyncData(await getCourse)
-
-watch(() => data.value, (value) => {
-  videoUrl.value = _get(value, 'item.video', '');
-}, {deep: true})
-
-
 </script>

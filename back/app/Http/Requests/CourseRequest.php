@@ -13,11 +13,17 @@ class CourseRequest extends BaseFormRequest
 
     public function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required|string|min:5|max:255',
             'description' => 'required|string|min:5|max:255',
-            'video' => 'required|file|mimes:mp4,mov|max:2048',
+            'video' => 'required|file|mimes:mp4,mov',
             'expiredAt' => 'required|date',
         ];
+
+        if ($this->method() === 'PUT') {
+            $rules['video'] = 'nullable|file|mimes:mp4';
+        }
+
+        return $rules;
     }
 }
